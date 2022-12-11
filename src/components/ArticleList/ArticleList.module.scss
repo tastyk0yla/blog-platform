@@ -1,0 +1,15 @@
+.ArticleList {
+  box-sizing: border-box;
+  padding: 0;
+  width: 940px;
+  min-height: 100%;
+  margin: 26px auto;
+  list-style: none;
+}
+
+.spinner {
+  display: flex;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+}

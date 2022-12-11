@@ -1,0 +1,30 @@
+$background-color: #ebeef3;
+$succes-color: #52c41a;
+$heading-color: #262626;
+$text-color: #404040;
+$primary-color: #1890ff;
+
+$border-radius: 5px;
+
+@mixin header6 {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+@mixin header5 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@mixin font-size-sm12 {
+  font-size: 12px;
+  line-height: 22px;
+}
+
+@mixin font-size-base-sm14{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+}
