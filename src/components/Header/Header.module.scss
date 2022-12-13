@@ -10,6 +10,11 @@ header {
   align-items: center;
   @include header6;
 
+  .btn_container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
   a {
     text-decoration: none;
     color: $text-color;
@@ -31,9 +36,43 @@ header {
     }
   }
 
-  & .signUp {
+  & .btn__sign_up {
     color: $succes-color;
     border-color: $succes-color;
+
+    & > span > a {
+      color: $succes-color;
+    }
+  }
+
+  & .btn__create_article {
+    background-color: transparent;
+    border-radius: $border-radius;
+    border: 1px solid $succes-color;
+    width: 115px;
+    height: 35px;
+
+    & > a {
+      color: $succes-color;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+
+  & .btn__log_out {
+    border: 1px solid #404040;
+  }
+
+  & .user_info__container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    & > img {
+      width: 46px;
+      height: 46px;
+    }
   }
 
   & > .logo {

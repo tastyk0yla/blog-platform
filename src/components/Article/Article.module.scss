@@ -1,117 +1,118 @@
 @import '../../variables.scss';
 
 .Article {
-    box-sizing: border-box;
-    border-radius: $border-radius;
-    width: 940px;
-    margin: 26px auto;
-    padding: 15px;
-    background-color: white;
-  
-    &-header {
-      display: flex;
-    }
-  
-    &--card-info {
-      margin-right: auto;
+  box-sizing: border-box;
+  border-radius: $border-radius;
+  width: 940px;
+  margin: 26px auto;
+  padding: 15px;
+  background-color: white;
 
-      & > a {
-        text-decoration: none;
+  &-header {
+    display: flex;
+  }
+
+  &--card-info {
+    margin-right: auto;
+
+    & > a {
+      text-decoration: none;
+    }
+  }
+
+  &-title {
+    max-width: 600px;
+    overflow: hidden;
+    color: $primary-color;
+    @include header5;
+  }
+
+  &-btn-like {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 12px;
+    background-color: transparent;
+    border: 0;
+    color: $text-color;
+    padding: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    & > .icon-like {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+
+    & > .btn--counter {
+      @include font-size-sm12;
+    }
+  }
+
+  .tag-list {
+    margin-top: 4px;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    & > .tag {
+      display: flex;
+      border: 1px solid $text-color;
+      border-radius: 2px;
+      padding: 5px;
+      margin-right: 8px;
+
+      & > span {
+        font-size: 12px;
+        line-height: 9px;
+        color: $text-color;
       }
     }
-  
-    &-title {
-      color: $primary-color;
-      @include header5;
-    }
-  
-    &-btn-like {
-      display: inline-flex;
-      align-items: center;
-      margin-left: 12px;
-      background-color: transparent;
-      border: 0;
-      color: $text-color;
-      padding: 0;
-  
-      &:hover {
-        cursor: pointer;
+  }
+
+  &--author-info {
+    display: flex;
+  }
+
+  &--name-and-date {
+    margin-right: 12px;
+
+    & > span {
+      display: block;
+
+      &:first-child {
+        @include header6;
       }
-  
-      & > .icon-like {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-      }
-  
-      & > .btn--counter {
+
+      &:last-child {
         @include font-size-sm12;
       }
     }
-  
-    .tag-list {
-      margin-top: 4px;
-      padding: 0;
-      display: flex;
-      list-style: none;
-  
-      & > .tag {
-        display: flex;
-        border: 1px solid $text-color;
-        border-radius: 2px;
-        padding: 5px;
-        margin-right: 8px;
-  
-        & > span {
-          font-size: 12px;
-          line-height: 9px;
-          color: $text-color;
-        }
-      }
-    }
-  
-    &--author-info {
-      display: flex;
-    }
-  
-    &--name-and-date {
-      margin-right: 12px;
-  
-      & > span {
-        display: block;
-  
-        &:first-child {
-          @include header6;
-        }
-  
-        &:last-child {
-          @include font-size-sm12;
-        }
-      }
-    }
-    &--author-avatar {
-      width: 46px;
-      height: 46px;
-    }
-  
-    &-description {
-      @include font-size-sm12;
-      color: $text-color;
-    }
-
-    &-body {
-        color: $text-color;
-    }
-
-    &-body > p {
-        @include font-size-base-sm14;
-      }
+  }
+  &--author-avatar {
+    width: 46px;
+    height: 46px;
   }
 
-.spinner {
-    display: flex;
-    height: 400px;
-    align-items: center;
-    justify-content: center;
+  &-description {
+    @include font-size-sm12;
+    color: $text-color;
+  }
+
+  &-body {
+    color: $text-color;
+  }
+
+  &-body > p {
+    @include font-size-base-sm14;
+  }
 }
-  
+
+.spinner {
+  display: flex;
+  height: 400px;
+  align-items: center;
+  justify-content: center;
+}

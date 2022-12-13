@@ -3,6 +3,8 @@ $succes-color: #52c41a;
 $heading-color: #262626;
 $text-color: #404040;
 $primary-color: #1890ff;
+$grey-7-color: #8c8c8c;
+$highlight-color: #f5222d;
 
 $border-radius: 5px;
 
@@ -21,10 +23,10 @@ $border-radius: 5px;
   line-height: 22px;
 }
 
-@mixin font-size-base-sm14{
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 28px;
+@mixin font-size-base-sm14 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
 }

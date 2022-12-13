@@ -6,7 +6,6 @@ import classes from './ArticleList.module.scss'
 import * as actions from '../../redux/actions'
 import ArticleCard from '../ArticleCard'
 const ArticleList = ({ page, articles, articlesCount, isFetching, getArticles, setPage }) => {
-  console.log(page)
   useLayoutEffect(() => {
     getArticles(page)
   }, [page])

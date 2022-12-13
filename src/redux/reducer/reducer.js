@@ -7,6 +7,8 @@ const initialState = {
   error: null,
   articles: [],
   article: {},
+  formErrors: {},
+  userInfo: {},
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +25,10 @@ const reducer = (state = initialState, action) => {
       return { ...state, articles: payload.articles, articlesCount: payload.articlesCount }
     case 'SET_PAGE':
       return { ...state, page: payload }
+    case 'PUSH_FORM_ERRS':
+      return { ...state, formErrors: payload }
+    case 'SET_USER':
+      return payload ? { ...state, formErrors: {}, userInfo: payload } : { ...state, formErrors: {}, userInfo: {} }
     default:
       return state
   }

@@ -12,7 +12,6 @@ import * as actions from '../../redux/actions'
 // proverka-markdown-8rn0t9
 
 const Article = ({ isFetching, slug, article, getAnArticle }) => {
-  console.log(isFetching, slug, article, getAnArticle)
   useEffect(() => {
     getAnArticle(slug)
   }, [])
@@ -25,6 +24,8 @@ const Article = ({ isFetching, slug, article, getAnArticle }) => {
         <span>{tag}</span>
       </li>
     ))
+
+  const created = createdAt ? parseISO(createdAt) : Date.now()
 
   const avatar = author?.image
   const element = isFetching ? (
@@ -47,7 +48,7 @@ const Article = ({ isFetching, slug, article, getAnArticle }) => {
         <div className={classes['Article--author-info']}>
           <div className={classes['Article--name-and-date']}>
             <span>{author?.username}</span>
-            <span>{format(parseISO(createdAt), 'LLLL d, yyyy')}</span>
+            <span>{format(created, 'LLLL d, yyyy')}</span>
           </div>
           <img className={classes['Article--author-avatar']} src={avatar || defaultAvatar} alt="Author avatar" />
         </div>
