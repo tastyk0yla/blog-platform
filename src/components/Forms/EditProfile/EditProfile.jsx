@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 import { Spin } from 'antd'
 import isEmpty from 'lodash.isempty'
@@ -9,6 +10,9 @@ import classes from '../Forms.module.scss'
 import * as actions from '../../../redux/actions'
 
 const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
+  const history = useHistory()
+  if (!userInfo.token) history.push('/')
+
   let useFormObject = { mode: 'onChange' }
 
   useEffect(() => {
@@ -103,10 +107,10 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
         />
         {errors?.password?.message && <span className={classes.err_msg}>{errors?.password?.message}</span>}
 
-        <label htmlFor="avatar" />
+        <label htmlFor="image" />
         <span>Avatar image (url)</span>
         <input
-          {...register('avatar', {
+          {...register('image', {
             pattern: {
               value:
                 /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/,
@@ -116,9 +120,9 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
           type="text"
           placeholder="Avatar image"
           id="avatar"
-          className={errors?.passwordRepeat?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.image?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
         />
-        {errors?.passwordRepeat?.message && <span className={classes.err_msg}>{errors?.passwordRepeat?.message}</span>}
+        {errors?.image?.message && <span className={classes.err_msg}>{errors?.image?.message}</span>}
         <button className={classes.btn__submit} type="submit">
           <span>{isFetching ? <Spin size="small" /> : 'Save'}</span>
         </button>

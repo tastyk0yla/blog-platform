@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.Article {
+.article {
   box-sizing: border-box;
   border-radius: $border-radius;
   width: 940px;
@@ -96,13 +96,65 @@
     height: 46px;
   }
 
+  &_decs_and_actions {
+    display: flex;
+  }
+
+  &_actions {
+    display: flex;
+    gap: 12px;
+    margin-right: 12px;
+    margin-left: auto;
+
+    & .btn_delete {
+      border: 1px solid $highlight-color;
+
+      & > span {
+        color: $highlight-color;
+      }
+    }
+
+    & .btn_edit {
+      border: 1px solid $succes-color;
+
+      & > span {
+        color: $succes-color;
+      }
+    }
+
+    & > button {
+      background-color: transparent;
+      display: flex;
+      border-radius: 5px;
+      height: 32px;
+
+      & > span {
+        margin: auto;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
   &-description {
+    margin: 0;
+    align-self: flex-start;
     @include font-size-sm12;
     color: $text-color;
+    word-wrap: break-word;
+    width: 780px;
   }
 
   &-body {
     color: $text-color;
+    word-wrap: break-word;
   }
 
   &-body > p {

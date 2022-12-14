@@ -83,7 +83,7 @@ const SignIn = ({ formErrors, toggleFetching, userInfo, isFetching, logIn }) => 
         />
         {errors?.password?.message && <span className={classes.err_msg}>{errors?.password?.message}</span>}
 
-        <button className={classes.btn__submit_login} type="submit">
+        <button className={`${classes.btn__submit} ${classes.btn__submit_login}`} type="submit">
           <span>{isFetching ? <Spin size="small" /> : 'Login'}</span>
         </button>
         <span className={classes['forms-footer']}>

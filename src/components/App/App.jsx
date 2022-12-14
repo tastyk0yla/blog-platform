@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.scss'
 import SignUp from '../Forms/SignUp'
 import SignIn from '../Forms/SignIn'
@@ -6,24 +6,37 @@ import EditProfile from '../Forms/EditProfile'
 import Header from '../Header'
 import Article from '../Article'
 import ArticleList from '../ArticleList'
+import NewArticle from '../ArticleForms/NewArticle'
+import EditArticle from '../ArticleForms/EditArticle'
 
 const App = () => {
   return (
     <Router>
       <div className="App">
         <Header />
-        <Route exact path="/" component={ArticleList} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/sign-in" component={SignIn} />
-        <Route path="/profile" component={EditProfile} />
-        <Route path="/articles/" exact component={ArticleList} />
-        <Route
-          path="/articles/:slug"
-          render={({ match }) => {
-            const { slug } = match.params
-            return <Article slug={slug} />
-          }}
-        />
+        <Switch>
+          <Route exact path="/" component={ArticleList} />
+          <Route path="/sign-up" component={SignUp} />
+          <Route path="/sign-in" component={SignIn} />
+          <Route path="/profile" component={EditProfile} />
+          <Route path="/articles/" exact component={ArticleList} />
+          <Route
+            exact
+            path="/articles/:slug"
+            render={({ match }) => {
+              const { slug } = match.params
+              return <Article slug={slug} />
+            }}
+          />
+          <Route
+            path="/articles/:slug/edit"
+            render={({ match }) => {
+              const { slug } = match.params
+              return <EditArticle slug={slug} />
+            }}
+          />
+          <Route path="/new-article" component={NewArticle} />
+        </Switch>
       </div>
     </Router>
   )

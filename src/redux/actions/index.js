@@ -9,6 +9,8 @@ export const pushAnArticle = (article) => ({ type: 'PUSH_ARTICLE', payload: arti
 export const toggleLogin = (status) => ({ type: 'TOGGLE_LOGIN', payload: status })
 export const pushFormErrors = (errors) => ({ type: 'PUSH_FORM_ERRS', payload: errors })
 export const setUserInfo = (userInfo) => ({ type: 'SET_USER', payload: userInfo })
+export const clearArticleState = () => ({ type: 'CLEAR_ARTICLE' })
+export const likeClicked = () => ({ type: 'TOGGLE_LIKE' })
 
 export const logIn = (submittedForm) => (dispatch) => {
   const userObject = {
@@ -32,22 +34,40 @@ export const logOut = () => (dispatch) => {
   dispatch(setUserInfo())
 }
 
-export const getArticles = (page) => (dispatch) => {
-  const offset = page === 1 ? 0 : 5 * page - 5
-  dispatch(toggleFetching(true))
-  api.getArticlesList(offset).then(({ articles, articlesCount }) => {
-    dispatch(pushArticles({ articles, articlesCount }))
-    dispatch(toggleFetching(false))
-  })
+export const getArticleWithFineStrings = (article) => {
+  const shortTitle = article.title.length > 50 ? `${article.title.substring(0, 50)}..` : article.title
+  const shortDescription =
+    article.description.length > 200 ? `${article.description.substring(0, 200)}..` : article.description
+  const shortTags = article.tagList.reduce((acc, tag) => {
+    acc.push(`${tag.substring(0, 20)}..`)
+    return acc
+  }, [])
+  return { ...article, title: shortTitle, description: shortDescription, tagList: shortTags }
 }
 
-export const getAnArticle = (slug) => (dispatch) => {
-  dispatch(toggleFetching(true))
-  api.getAnArticle(slug).then((response) => {
-    dispatch(pushAnArticle(response.article))
-    dispatch(toggleFetching(false))
-  })
-}
+export const getArticles =
+  (page, token = false) =>
+  (dispatch) => {
+    const offset = page === 1 ? 0 : 5 * page - 5
+
+    dispatch(toggleFetching(true))
+    api.getArticlesList(offset, token).then(({ articles, articlesCount }) => {
+      const fineArticles = articles.map((article) => getArticleWithFineStrings(article))
+      dispatch(pushArticles({ articles: fineArticles, articlesCount }))
+      dispatch(toggleFetching(false))
+    })
+  }
+
+export const getAnArticle =
+  (slug, token = false) =>
+  (dispatch) => {
+    dispatch(toggleFetching(true))
+    api.getAnArticle(slug, token).then((response) => {
+      const fineArticle = getArticleWithFineStrings(response.article)
+      dispatch(pushAnArticle(fineArticle))
+      dispatch(toggleFetching(false))
+    })
+  }
 
 export const registration = (submittedForm) => (dispatch) => {
   const userObject = {
@@ -90,5 +110,73 @@ export const updateUserInfo = (token, submittedForm) => (dispatch) => {
       dispatch(pushFormErrors(response.errors))
     }
     dispatch(toggleFetching(false))
+  })
+}
+
+export const putLike = (token, slug) => (dispatch) => {
+  api.putLike(token, slug).then((response) => {
+    const fineArticle = getArticleWithFineStrings(response.article)
+    dispatch(pushAnArticle(fineArticle))
+    dispatch(likeClicked())
+    dispatch(toggleFetching(false))
+  })
+}
+
+export const removeLike = (token, slug) => (dispatch) => {
+  api.removeLike(token, slug).then((response) => {
+    const fineArticle = getArticleWithFineStrings(response.article)
+    dispatch(pushAnArticle(fineArticle))
+    dispatch(likeClicked())
+    dispatch(toggleFetching(false))
+  })
+}
+
+const getTagList = (object) => {
+  const entries = Object.entries(object)
+  const tagList = entries.reduce((acc, entrie) => {
+    if (entrie[0].includes('tag') && entrie[1]) acc.push(entrie[1])
+    return acc
+  }, [])
+  return tagList
+}
+
+export const createArticle = (token, submittedForm) => (dispatch) => {
+  const tagList = getTagList(submittedForm)
+  const articleObj = {
+    article: {
+      title: submittedForm.title,
+      description: submittedForm.description,
+      body: submittedForm.text,
+      tagList: tagList,
+    },
+  }
+
+  toggleFetching(true)
+  api.createArticle(token, articleObj).then((response) => {
+    if (response.article) {
+      const fineArticle = getArticleWithFineStrings(response.article)
+      dispatch(pushAnArticle({ ...fineArticle, redirectIsNeeded: true }))
+    }
+    toggleFetching(false)
+  })
+}
+
+export const updateArticle = (token, slug, submittedForm) => (dispatch) => {
+  const tagList = getTagList(submittedForm)
+  const newArticleObj = {
+    article: {
+      title: submittedForm.title,
+      description: submittedForm.description,
+      body: submittedForm.text,
+      tagList: tagList,
+    },
+  }
+  toggleFetching(true)
+  api.updateArticle(token, slug, newArticleObj).then((response) => {
+    if (response.article) {
+      const fineArticle = getArticleWithFineStrings(response.article)
+      dispatch(pushAnArticle({ ...fineArticle, redirectIsNeeded: true }))
+    }
+    toggleFetching(false)
   })
 }

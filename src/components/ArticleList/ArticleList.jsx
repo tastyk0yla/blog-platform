@@ -5,14 +5,29 @@ import { bindActionCreators } from 'redux'
 import classes from './ArticleList.module.scss'
 import * as actions from '../../redux/actions'
 import ArticleCard from '../ArticleCard'
-const ArticleList = ({ page, articles, articlesCount, isFetching, getArticles, setPage }) => {
+const ArticleList = ({
+  page,
+  articles,
+  articlesCount,
+  isFetching,
+  getArticles,
+  setPage,
+  putLike,
+  removeLike,
+  userInfo,
+  clearArticleState,
+  likeCounter,
+}) => {
   useLayoutEffect(() => {
-    getArticles(page)
-  }, [page])
+    clearArticleState()
+    userInfo.token ? getArticles(page, userInfo.token) : getArticles(page)
+  }, [page, likeCounter])
 
   let list = []
   if (articles?.length > 0) {
-    list = articles.map((article) => <ArticleCard article={article} key={article.slug} />)
+    list = articles.map((article) => (
+      <ArticleCard article={article} key={article.slug} userInfo={userInfo} putLike={putLike} removeLike={removeLike} />
+    ))
   }
 
   const element = isFetching ? (
@@ -36,8 +51,8 @@ const ArticleList = ({ page, articles, articlesCount, isFetching, getArticles, s
   return <Fragment>{element}</Fragment>
 }
 
-const mapStateToProps = ({ isFetching, articles, articlesCount, page }) => {
-  return { isFetching, articles, articlesCount, page }
+const mapStateToProps = ({ isFetching, articles, articlesCount, page, putLike, removeLike, userInfo, likeCounter }) => {
+  return { isFetching, articles, articlesCount, page, putLike, removeLike, userInfo, likeCounter }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)

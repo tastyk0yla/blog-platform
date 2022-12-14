@@ -7,8 +7,8 @@
     "eject": "react-scripts eject",
     "format": "prettier --write ./src",
     "lint": "eslint ./src",
-    "prepare": "husky install",
     "lint:fix": "eslint ./src --fix --color",
+    "prepare": "husky install",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },

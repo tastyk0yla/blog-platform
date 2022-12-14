@@ -17,6 +17,7 @@
 
     & > a {
       text-decoration: none;
+      
     }
   }
 
@@ -54,6 +55,8 @@
     padding: 0;
     display: flex;
     list-style: none;
+    max-width: 700px;
+    overflow: hidden;
 
     & > .tag {
       display: flex;
@@ -95,7 +98,11 @@
   }
 
   &-description {
+    margin: 0;
+    align-self: flex-start;
     @include font-size-sm12;
     color: $text-color;
+    word-wrap: break-word;
+    width: 900px;
   }
 }

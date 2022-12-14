@@ -138,25 +138,17 @@
       border-radius: 4px;
 
       &_login {
-        padding: 0;
-        box-sizing: border-box;
-        display: flex;
-        width: 320px;
-        height: 40px;
-        background-color: $primary-color;
-        border: 0;
-        border-radius: 4px;
         margin-top: 20px;
+      }
 
-        & > span {
-          margin: auto;
-          font-family: 'Roboto';
-          font-style: normal;
-          font-weight: 400;
-          font-size: 16px;
-          line-height: 24px;
-          color: white;
-        }
+      & > span {
+        margin: auto;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: white;
       }
 
       &:hover {

@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react'
 import { Spin } from 'antd'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { parseISO, format } from 'date-fns'
 import ReactMarkdown from 'react-markdown'
@@ -9,14 +9,18 @@ import classes from './Article.module.scss'
 import defaultAvatar from '../../img/avatar.jpg'
 import heart from '../../img/heart.svg'
 import * as actions from '../../redux/actions'
-// proverka-markdown-8rn0t9
+import heartLiked from '../../img/heart-liked.svg'
 
-const Article = ({ isFetching, slug, article, getAnArticle }) => {
+const Article = ({ isFetching, slug, article, getAnArticle, putLike, removeLike, userInfo }) => {
+  const history = useHistory()
+
+  const { title, favoritesCount, author, createdAt, description, tagList, body, favorited } = article
+  const { token } = userInfo
+
   useEffect(() => {
-    getAnArticle(slug)
-  }, [])
+    token ? getAnArticle(slug, token) : getAnArticle(slug)
+  }, [token])
 
-  const { title, favoritesCount, author, createdAt, description, tagList, body } = article
   let tags = []
   if (tagList?.length > 0)
     tags = tagList.map((tag, index) => (
@@ -25,6 +29,7 @@ const Article = ({ isFetching, slug, article, getAnArticle }) => {
       </li>
     ))
 
+  const handleLike = favorited ? removeLike : putLike
   const created = createdAt ? parseISO(createdAt) : Date.now()
 
   const avatar = author?.image
@@ -33,28 +38,47 @@ const Article = ({ isFetching, slug, article, getAnArticle }) => {
       <Spin size="large" />
     </div>
   ) : (
-    <div className={classes.Article}>
-      <div className={classes['Article-header']}>
-        <div className={classes['Article--card-info']}>
-          <Link to={`/articles/${slug}`} className={classes['Article-title']}>
+    <div className={classes.article}>
+      <div className={classes['article-header']}>
+        <div className={classes['article--card-info']}>
+          <Link to={`/articles/${slug}`} className={classes['article-title']}>
             {title}
           </Link>
-          <button className={classes['Article-btn-like']}>
-            <img src={heart} alt="icon-like" className={classes['icon-like']} />
+          <button
+            disabled={token ? false : true}
+            className={classes['article-btn-like']}
+            onClick={() => handleLike(token, slug)}
+          >
+            <img src={favorited ? heartLiked : heart} alt="icon-like" className={classes['icon-like']} />
             <span>{favoritesCount}</span>
           </button>
           <ul className={classes['tag-list']}>{tags}</ul>
         </div>
-        <div className={classes['Article--author-info']}>
-          <div className={classes['Article--name-and-date']}>
+        <div className={classes['article--author-info']}>
+          <div className={classes['article--name-and-date']}>
             <span>{author?.username}</span>
             <span>{format(created, 'LLLL d, yyyy')}</span>
           </div>
-          <img className={classes['Article--author-avatar']} src={avatar || defaultAvatar} alt="Author avatar" />
+          <img className={classes['article--author-avatar']} src={avatar || defaultAvatar} alt="Author avatar" />
         </div>
       </div>
-      <p className={classes['Article-description']}>{description}</p>
-      <div className={classes['Article-body']}>
+      <div className={classes.article_decs_and_actions}>
+        <p className={classes['article-description']}>{description}</p>
+        <div className={classes.article_actions}>
+          <button className={classes.btn_delete}>
+            <span>Delete</span>
+          </button>
+          <button
+            className={classes.btn_edit}
+            onClick={() => {
+              history.push(`/articles/${slug}/edit`)
+            }}
+          >
+            <span>Edit</span>
+          </button>
+        </div>
+      </div>
+      <div className={classes['article-body']}>
         <ReactMarkdown>{body}</ReactMarkdown>
       </div>
     </div>
@@ -63,7 +87,7 @@ const Article = ({ isFetching, slug, article, getAnArticle }) => {
   return <Fragment>{element}</Fragment>
 }
 
-const mapStateToProps = ({ isFetching, article }) => ({ isFetching, article })
+const mapStateToProps = ({ isFetching, article, userInfo }) => ({ isFetching, article, userInfo })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)
 

@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom'
 import classes from './ArticleCard.module.scss'
 import defaultAvatar from '../../img/avatar.jpg'
 import heart from '../../img/heart.svg'
+import heartLiked from '../../img/heart-liked.svg'
 
 const ArticleCard = (props) => {
-  const { slug, title, description, tagList, favoritesCount, author, createdAt } = props.article
+  const { slug, title, description, tagList, favoritesCount, author, createdAt, favorited } = props.article
   const avatar = author.image
+  const { userInfo, removeLike, putLike } = props
+  const token = userInfo.token
   let tags = []
   if (tagList?.length > 0)
     tags = tagList.map((tag, index) => (
@@ -14,6 +17,7 @@ const ArticleCard = (props) => {
         <span>{tag}</span>
       </li>
     ))
+  const handleLike = favorited ? removeLike : putLike
   return (
     <li className={classes.ArticleCard}>
       <div className={classes['ArticleCard-header']}>
@@ -21,8 +25,14 @@ const ArticleCard = (props) => {
           <Link to={`/articles/${slug}`} className={classes['ArticleCard-title']}>
             {title}
           </Link>
-          <button className={classes['ArticleCard-btn-like']}>
-            <img src={heart} alt="icon-like" className={classes['icon-like']} />
+          <button
+            disabled={token ? false : true}
+            className={classes['ArticleCard-btn-like']}
+            onClick={() => {
+              handleLike(token, slug)
+            }}
+          >
+            <img src={favorited ? heartLiked : heart} alt="icon-like" className={classes['icon-like']} />
             <span>{favoritesCount}</span>
           </button>
           <ul className={classes['tag-list']}>{tags}</ul>

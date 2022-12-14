@@ -1,0 +1,156 @@
+@import '../../variables.scss';
+
+.article_forms_wrapper {
+  font-family: 'Roboto';
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  width: 940px;
+  margin: 34px auto;
+  gap: 20px;
+  padding: 48px 32px;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198),
+    0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035),
+    0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+
+  & > .article_forms_title {
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    color: $heading-color;
+  }
+
+  & > form {
+    & .err_msg {
+      margin-top: -20px;
+      margin-bottom: 20px;
+      color: $highlight-color;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    & .btn {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      padding: 8px 16px;
+      height: 40px;
+
+      & > span {
+        margin: auto;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        align-items: center;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    & span {
+      display: block;
+      width: 100%;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
+      color: $heading-color;
+    }
+
+    & .input {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 40px;
+      margin-bottom: 20px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      padding: 8px 12px 8px 12px;
+
+      &--error {
+        border: 1px solid $highlight-color;
+
+        &:focus {
+          border: 2px solid $highlight-color;
+          outline: none;
+        }
+      }
+
+      &::placeholder {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #bfbfbf;
+      }
+    }
+
+    & > textarea {
+      resize: none;
+    }
+
+    & > .tags {
+      display: flex;
+
+      & > ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 360px;
+
+        & > .tag {
+          display: flex;
+
+          & > input {
+            width: 300px;
+          }
+
+          & > .btn_delete {
+            border: 1px solid $highlight-color;
+            background-color: transparent;
+            margin-left: 18px;
+
+            > span {
+              color: $highlight-color;
+            }
+          }
+        }
+      }
+
+      & > .btn_add {
+        align-self: flex-end;
+        width: 136px;
+        border: 1px solid $primary-color;
+        background-color: transparent;
+        margin-left: 18px;
+        margin-bottom: 20px;
+
+        > span {
+          color: $primary-color;
+        }
+      }
+    }
+
+    & > .btn_save {
+      padding: 0;
+      width: 320px;
+      background-color: $primary-color;
+      border: 0;
+      border-radius: 4px;
+
+      & > span {
+        color: white;
+      }
+    }
+  }
+}
