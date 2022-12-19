@@ -9,8 +9,12 @@ export const pushAnArticle = (article) => ({ type: 'PUSH_ARTICLE', payload: arti
 export const toggleLogin = (status) => ({ type: 'TOGGLE_LOGIN', payload: status })
 export const pushFormErrors = (errors) => ({ type: 'PUSH_FORM_ERRS', payload: errors })
 export const setUserInfo = (userInfo) => ({ type: 'SET_USER', payload: userInfo })
-export const clearArticleState = () => ({ type: 'CLEAR_ARTICLE' })
 export const likeClicked = () => ({ type: 'TOGGLE_LIKE' })
+
+export const clearArticleState = () => ({ type: 'CLEAR_ARTICLE' })
+export const toggleDeleted = (status) => ({ type: 'TOGGLE_DELETED', payload: status })
+export const toggleEditing = (status) => ({ type: 'TOGGLE_EDIT', payload: status })
+export const toggleSuccessfullyModified = (status) => ({ type: 'TOGGLE_SUCCESS', payload: status })
 
 export const logIn = (submittedForm) => (dispatch) => {
   const userObject = {
@@ -39,7 +43,7 @@ export const getArticleWithFineStrings = (article) => {
   const shortDescription =
     article.description.length > 200 ? `${article.description.substring(0, 200)}..` : article.description
   const shortTags = article.tagList.reduce((acc, tag) => {
-    acc.push(`${tag.substring(0, 20)}..`)
+    tag.length > 20 ? acc.push(`${tag.substring(0, 20)}..`) : acc.push(tag)
     return acc
   }, [])
   return { ...article, title: shortTitle, description: shortDescription, tagList: shortTags }
@@ -155,7 +159,8 @@ export const createArticle = (token, submittedForm) => (dispatch) => {
   api.createArticle(token, articleObj).then((response) => {
     if (response.article) {
       const fineArticle = getArticleWithFineStrings(response.article)
-      dispatch(pushAnArticle({ ...fineArticle, redirectIsNeeded: true }))
+      dispatch(pushAnArticle(fineArticle))
+      dispatch(toggleSuccessfullyModified(true))
     }
     toggleFetching(false)
   })
@@ -173,10 +178,21 @@ export const updateArticle = (token, slug, submittedForm) => (dispatch) => {
   }
   toggleFetching(true)
   api.updateArticle(token, slug, newArticleObj).then((response) => {
+    console.log(response)
     if (response.article) {
       const fineArticle = getArticleWithFineStrings(response.article)
-      dispatch(pushAnArticle({ ...fineArticle, redirectIsNeeded: true }))
+      dispatch(pushAnArticle({ ...fineArticle, successfullyModified: true }))
+      dispatch(toggleSuccessfullyModified(true))
+      dispatch(toggleEditing(false))
     }
     toggleFetching(false)
+  })
+}
+
+export const deleteArticle = (token, slug) => (dispatch) => {
+  dispatch(toggleFetching(true))
+  api.deleteArticle(token, slug).then((response) => {
+    response.ok && dispatch(toggleDeleted(true))
+    dispatch(toggleFetching(false))
   })
 }

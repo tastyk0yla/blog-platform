@@ -8,11 +8,11 @@
   padding: 15px;
   background-color: white;
 
-  &-header {
+  &_header {
     display: flex;
   }
 
-  &--card-info {
+  &__card_info {
     margin-right: auto;
 
     & > a {
@@ -20,14 +20,14 @@
     }
   }
 
-  &-title {
+  &_title {
     max-width: 600px;
     overflow: hidden;
     color: $primary-color;
     @include header5;
   }
 
-  &-btn-like {
+  &_btn_like {
     display: inline-flex;
     align-items: center;
     margin-left: 12px;
@@ -51,7 +51,7 @@
     }
   }
 
-  .tag-list {
+  .tag_list {
     margin-top: 4px;
     padding: 0;
     display: flex;
@@ -72,11 +72,11 @@
     }
   }
 
-  &--author-info {
+  &__author_info {
     display: flex;
   }
 
-  &--name-and-date {
+  &__name_and_date {
     margin-right: 12px;
 
     & > span {
@@ -91,7 +91,7 @@
       }
     }
   }
-  &--author-avatar {
+  &__author_avatar {
     width: 46px;
     height: 46px;
   }
@@ -101,6 +101,7 @@
   }
 
   &_actions {
+    margin-top: 14px;
     display: flex;
     gap: 12px;
     margin-right: 12px;
@@ -143,7 +144,7 @@
     }
   }
 
-  &-description {
+  &_description {
     margin: 0;
     align-self: flex-start;
     @include font-size-sm12;
@@ -152,12 +153,12 @@
     width: 780px;
   }
 
-  &-body {
+  &_body {
     color: $text-color;
     word-wrap: break-word;
   }
 
-  &-body > p {
+  &_body > p {
     @include font-size-base-sm14;
   }
 }

@@ -104,4 +104,14 @@ export default class blogApi {
 
     return await response.json()
   }
+
+  deleteArticle = async (token, slug) => {
+    const response = await fetch(`${this._API_BASE}/articles/${slug}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    return response
+  }
 }

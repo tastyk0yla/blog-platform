@@ -1,13 +1,12 @@
-// import { Link, useHistory } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { useHistory } from 'react-router-dom'
-import { useEffect } from 'react'
 import { Spin } from 'antd'
 import isEmpty from 'lodash.isempty'
-import classes from '../Forms.module.scss'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
 import * as actions from '../../../redux/actions'
+import classes from '../Forms.module.scss'
 
 const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
   const history = useHistory()
@@ -19,8 +18,10 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
     if (userInfo.username !== undefined) {
       setValue('username', userInfo.username)
       setValue('email', userInfo.email)
+      setValue('image', userInfo.image)
     }
   }, [userInfo])
+
   const {
     register,
     formState: { errors },
@@ -62,10 +63,10 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
           type="text"
           placeholder="Username"
           id="username"
-          className={errors?.username?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.username?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {(errors?.username?.message && <span className={classes.err_msg}>{errors?.username?.message}</span>) ||
-          (formErrors?.username && <span className={classes.err_msg}>{formErrors?.username}</span>)}
+          (formErrors?.username && <span className={classes.err_msg}>{`Username ${formErrors?.username}`}</span>)}
 
         <label htmlFor="email" />
         <span>Email address</span>
@@ -82,10 +83,10 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
           type="text"
           placeholder="Email address"
           id="email"
-          className={errors?.email?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.email?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {(errors?.email?.message && <span className={classes.err_msg}>{errors?.email?.message}</span>) ||
-          (formErrors?.email && <span className={classes.err_msg}>{formErrors?.email}</span>)}
+          (formErrors?.email && <span className={classes.err_msg}>{`Email ${formErrors?.email}`}</span>)}
 
         <label htmlFor="password" />
         <span>New password</span>
@@ -103,7 +104,7 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
           type="password"
           placeholder="New password"
           id="password"
-          className={errors?.password?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.password?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {errors?.password?.message && <span className={classes.err_msg}>{errors?.password?.message}</span>}
 
@@ -120,7 +121,7 @@ const EditProfile = ({ formErrors, isFetching, updateUserInfo, userInfo }) => {
           type="text"
           placeholder="Avatar image"
           id="avatar"
-          className={errors?.image?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.image?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {errors?.image?.message && <span className={classes.err_msg}>{errors?.image?.message}</span>}
         <button className={classes.btn__submit} type="submit">

@@ -9,7 +9,8 @@
       "plugin:react/recommended",
       "plugin:prettier/recommended",
       "plugin:import/errors",
-      "plugin:import/warnings"
+      "plugin:import/warnings",
+      "prettier"
     ],
     "parser": "@babel/eslint-parser",
     "parserOptions": {
@@ -39,9 +40,9 @@
             [
               "external", 
               "builtin", 
-              "internal", 
-              "sibling", 
+              "internal",
               "parent", 
+              "sibling", 
               "index"
             ]
         } 

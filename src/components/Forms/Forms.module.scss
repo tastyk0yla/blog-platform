@@ -60,7 +60,7 @@
       padding: 8px 12px 8px 12px;
       margin-bottom: 12px;
 
-      &--error {
+      &__error {
         border: 1px solid $highlight-color;
 
         &:focus {
@@ -86,7 +86,7 @@
       background-color: #e8e8e8;
     }
 
-    .label-with-checkbox {
+    .label_with_checkbox {
       display: flex;
 
       & > span {
@@ -121,7 +121,7 @@
         width: 16px;
         height: 16px;
 
-        &--err {
+        &__err {
           border: 1px solid $highlight-color;
         }
       }
@@ -167,7 +167,7 @@
       }
     }
 
-    & .forms-footer {
+    & .forms_footer {
       font-size: 12px;
       line-height: 20px;
       color: $grey-7-color;

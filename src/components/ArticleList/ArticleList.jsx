@@ -2,9 +2,9 @@ import { Pagination, Spin } from 'antd'
 import { Fragment, useLayoutEffect } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import classes from './ArticleList.module.scss'
 import * as actions from '../../redux/actions'
-import ArticleCard from '../ArticleCard'
+import { ArticleCard } from '../ArticleCard'
+import classes from './ArticleList.module.scss'
 const ArticleList = ({
   page,
   articles,
@@ -36,7 +36,7 @@ const ArticleList = ({
     </div>
   ) : (
     <Fragment>
-      <ul className={classes.ArticleList}>{list}</ul>
+      <ul className={classes.article_list}>{list}</ul>
       <Pagination
         current={page}
         pageSize={5}

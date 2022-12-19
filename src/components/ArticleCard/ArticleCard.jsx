@@ -1,9 +1,9 @@
-import { parseISO, format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { Link } from 'react-router-dom'
-import classes from './ArticleCard.module.scss'
 import defaultAvatar from '../../img/avatar.jpg'
-import heart from '../../img/heart.svg'
 import heartLiked from '../../img/heart-liked.svg'
+import heart from '../../img/heart.svg'
+import classes from './ArticleCard.module.scss'
 
 const ArticleCard = (props) => {
   const { slug, title, description, tagList, favoritesCount, author, createdAt, favorited } = props.article
@@ -19,33 +19,33 @@ const ArticleCard = (props) => {
     ))
   const handleLike = favorited ? removeLike : putLike
   return (
-    <li className={classes.ArticleCard}>
-      <div className={classes['ArticleCard-header']}>
-        <div className={classes['ArticleCard--card-info']}>
-          <Link to={`/articles/${slug}`} className={classes['ArticleCard-title']}>
+    <li className={classes.article_card}>
+      <div className={classes.article_card_header}>
+        <div className={classes.article_card__card_info}>
+          <Link to={`/articles/${slug}`} className={classes.article_card_title}>
             {title}
           </Link>
           <button
             disabled={token ? false : true}
-            className={classes['ArticleCard-btn-like']}
+            className={classes.article_card_btn_like}
             onClick={() => {
               handleLike(token, slug)
             }}
           >
-            <img src={favorited ? heartLiked : heart} alt="icon-like" className={classes['icon-like']} />
+            <img src={favorited ? heartLiked : heart} alt="icon-like" className={classes.icon_like} />
             <span>{favoritesCount}</span>
           </button>
-          <ul className={classes['tag-list']}>{tags}</ul>
+          <ul className={classes.tag_list}>{tags}</ul>
         </div>
-        <div className={classes['ArticleCard--author-info']}>
-          <div className={classes['ArticleCard--name-and-date']}>
+        <div className={classes.article_card__author_info}>
+          <div className={classes.article_card__name_and_date}>
             <span>{author?.username}</span>
             <span>{format(parseISO(createdAt), 'LLLL d, yyyy')}</span>
           </div>
-          <img className={classes['ArticleCard--author-avatar']} src={avatar || defaultAvatar} alt="Author avatar" />
+          <img className={classes.article_card__author_avatar} src={avatar || defaultAvatar} alt="Author avatar" />
         </div>
       </div>
-      <p className={classes['ArticleCard-description']}>{description}</p>
+      <p className={classes.article_card_description}>{description}</p>
     </li>
   )
 }

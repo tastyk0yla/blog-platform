@@ -1,18 +1,17 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Article } from '../Article'
+import { ArticleList } from '../ArticleList'
+import { EditProfile } from '../Forms/EditProfile'
+import { SignIn } from '../Forms/SignIn'
+import { SignUp } from '../Forms/SignUp'
+import { Header } from '../Header'
+import { ManageArticle } from '../ManageArticle'
 import './App.scss'
-import SignUp from '../Forms/SignUp'
-import SignIn from '../Forms/SignIn'
-import EditProfile from '../Forms/EditProfile'
-import Header from '../Header'
-import Article from '../Article'
-import ArticleList from '../ArticleList'
-import NewArticle from '../ArticleForms/NewArticle'
-import EditArticle from '../ArticleForms/EditArticle'
 
 const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Header />
         <Switch>
           <Route exact path="/" component={ArticleList} />
@@ -32,10 +31,10 @@ const App = () => {
             path="/articles/:slug/edit"
             render={({ match }) => {
               const { slug } = match.params
-              return <EditArticle slug={slug} />
+              return <ManageArticle slug={slug} />
             }}
           />
-          <Route path="/new-article" component={NewArticle} />
+          <Route path="/new-article" component={ManageArticle} />
         </Switch>
       </div>
     </Router>

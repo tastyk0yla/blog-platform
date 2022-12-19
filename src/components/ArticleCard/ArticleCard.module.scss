@@ -1,6 +1,6 @@
 @import '../../variables.scss';
 
-.ArticleCard {
+.article_card {
   box-sizing: border-box;
   border-radius: $border-radius;
   height: 140px;
@@ -8,25 +8,24 @@
   padding: 15px;
   background-color: white;
 
-  &-header {
+  &_header {
     display: flex;
   }
 
-  &--card-info {
+  &__card_info {
     margin-right: auto;
 
     & > a {
       text-decoration: none;
-      
     }
   }
 
-  &-title {
+  &_title {
     color: $primary-color;
     @include header5;
   }
 
-  &-btn-like {
+  &_btn_like {
     display: inline-flex;
     align-items: center;
     margin-left: 12px;
@@ -39,25 +38,26 @@
       cursor: pointer;
     }
 
-    & > .icon-like {
+    & > .icon_like {
       width: 16px;
       height: 16px;
       margin-right: 5px;
     }
 
-    & > .btn--counter {
+    & > .btn__counter {
       @include font-size-sm12;
     }
   }
 
-  .tag-list {
+  .tag_list {
     margin-top: 4px;
     padding: 0;
     display: flex;
     list-style: none;
     max-width: 700px;
     overflow: hidden;
-
+    margin-bottom: 16px;
+    
     & > .tag {
       display: flex;
       border: 1px solid $text-color;
@@ -73,11 +73,11 @@
     }
   }
 
-  &--author-info {
+  &__author_info {
     display: flex;
   }
 
-  &--name-and-date {
+  &__name_and_date {
     margin-right: 12px;
 
     & > span {
@@ -92,12 +92,12 @@
       }
     }
   }
-  &--author-avatar {
+  &__author_avatar {
     width: 46px;
     height: 46px;
   }
 
-  &-description {
+  &_description {
     margin: 0;
     align-self: flex-start;
     @include font-size-sm12;

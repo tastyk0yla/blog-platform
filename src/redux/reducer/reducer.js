@@ -1,5 +1,4 @@
 const initialState = {
-  isLogged: false,
   isFetching: true,
   isError: false,
   articlesCount: 0,
@@ -7,9 +6,12 @@ const initialState = {
   error: null,
   articles: [],
   article: {},
+  isDeleted: false,
+  isEditing: false,
   formErrors: {},
   userInfo: {},
   likeCounter: 0,
+  successfullyModified: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -34,6 +36,12 @@ const reducer = (state = initialState, action) => {
       return payload ? { ...state, formErrors: {}, userInfo: payload } : { ...state, formErrors: {}, userInfo: {} }
     case 'TOGGLE_LIKE':
       return { ...state, likeCounter: state.likeCounter + 1 }
+    case 'TOGGLE_DELETED':
+      return { ...state, isDeleted: payload }
+    case 'TOGGLE_EDIT':
+      return { ...state, isEditing: payload }
+    case 'TOGGLE_SUCCESS':
+      return { ...state, successfullyModified: payload }
     default:
       return state
   }

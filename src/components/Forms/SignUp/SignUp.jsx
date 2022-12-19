@@ -1,21 +1,21 @@
-import { Link, useHistory } from 'react-router-dom'
+import { Button, Result, Spin } from 'antd'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import { useEffect } from 'react'
-import { Spin } from 'antd'
-import classes from '../Forms.module.scss'
 import * as actions from '../../../redux/actions'
+import classes from '../Forms.module.scss'
 
 const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching }) => {
   const history = useHistory()
-  if (userInfo.token) {
-    history.push('/')
-  }
-
   useEffect(() => {
     toggleFetching(false)
   }, [])
+
+  const onSubmit = (data) => {
+    registration(data)
+  }
 
   const {
     register,
@@ -26,12 +26,8 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
     mode: 'onChange',
   })
 
-  const onSubmit = (data) => {
-    registration(data)
-  }
-
-  return (
-    <div className={classes.forms_wrapper}>
+  const signUpForm = (
+    <>
       <span className={classes.forms_title}>Create new account</span>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="username" />
@@ -41,7 +37,7 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
             required: 'Username is required!',
             pattern: {
               // eslint-disable-next-line no-useless-escape
-              value: /^[a-z0-9]{3,20}$/,
+              value: /^[a-zA-Z0-9]{3,20}$/,
               message: 'Username must contain only numbers and letters in any case',
             },
             minLength: {
@@ -56,10 +52,10 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
           type="text"
           placeholder="Username"
           id="username"
-          className={errors?.username?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.username?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {(errors?.username?.message && <span className={classes.err_msg}>{errors?.username?.message}</span>) ||
-          (formErrors?.username && <span className={classes.err_msg}>{formErrors?.username}</span>)}
+          (formErrors?.username && <span className={classes.err_msg}>{`Username ${formErrors?.username}`}</span>)}
 
         <label htmlFor="email" />
         <span>Email address</span>
@@ -76,10 +72,10 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
           type="email"
           placeholder="Email address"
           id="email"
-          className={errors?.email?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.email?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {(errors?.email?.message && <span className={classes.err_msg}>{errors?.email?.message}</span>) ||
-          (formErrors?.email && <span className={classes.err_msg}>{formErrors?.email}</span>)}
+          (formErrors?.email && <span className={classes.err_msg}>{`Email ${formErrors?.email}`}</span>)}
         <label htmlFor="password" />
         <span>Password</span>
         <input
@@ -97,7 +93,7 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
           type="password"
           placeholder="Password"
           id="password"
-          className={errors?.password?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.password?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {errors?.password?.message && <span className={classes.err_msg}>{errors?.password?.message}</span>}
         <label htmlFor="password-repeat" />
@@ -121,12 +117,12 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
           type="password"
           placeholder="Password"
           id="password-repeat"
-          className={errors?.passwordRepeat?.message ? `${classes.input} ${classes['input--error']}` : classes.input}
+          className={errors?.passwordRepeat?.message ? `${classes.input} ${classes.input__error}` : classes.input}
         />
         {errors?.passwordRepeat?.message && <span className={classes.err_msg}>{errors?.passwordRepeat?.message}</span>}
         <div className={classes.divider}></div>
 
-        <label className={classes['label-with-checkbox']} htmlFor="checkbox">
+        <label className={classes.label_with_checkbox} htmlFor="checkbox">
           <input
             {...register('checkbox', {
               required: true,
@@ -134,20 +130,45 @@ const SignUp = ({ formErrors, registration, toggleFetching, userInfo, isFetching
             type="checkbox"
             id="checkbox"
           />
-          <span
-            className={errors?.checkbox ? `${classes.checkbox} ${classes['checkbox--err']}` : classes.checkbox}
-          ></span>
+          <span className={errors?.checkbox ? `${classes.checkbox} ${classes.checkbox__err}` : classes.checkbox}></span>
           <span>I agree to the processing of my personal information</span>
         </label>
         <button className={classes.btn__submit} type="submit">
           <span>{isFetching ? <Spin size="small" /> : 'Create'}</span>
         </button>
-        <span className={classes['forms-footer']}>
+        <span className={classes.forms_footer}>
           Already have an account? <Link to="/sign-in"> Sign In.</Link>
         </span>
       </form>
-    </div>
+    </>
   )
+
+  const succesMsg = (
+    <Result
+      status="success"
+      title="Successfully registered"
+      subTitle={`${userInfo.username}, you have successfully registered`}
+      extra={[
+        <Button
+          type="primary"
+          key="console"
+          onClick={() => {
+            history.push('/')
+          }}
+        >
+          Go to articles
+        </Button>,
+      ]}
+    />
+  )
+
+  let element = signUpForm
+
+  if (userInfo.token) {
+    element = succesMsg
+  }
+
+  return <div className={classes.forms_wrapper}>{element}</div>
 }
 
 const mapStateToProps = ({ formErrors, userInfo, isFetching }) => {

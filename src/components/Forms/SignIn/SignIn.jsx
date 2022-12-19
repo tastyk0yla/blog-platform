@@ -1,11 +1,11 @@
-import { Link, useHistory } from 'react-router-dom'
+import { Spin } from 'antd'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import { useEffect } from 'react'
-import { Spin } from 'antd'
-import classes from '../Forms.module.scss'
 import * as actions from '../../../redux/actions'
+import classes from '../Forms.module.scss'
 
 const SignIn = ({ formErrors, toggleFetching, userInfo, isFetching, logIn }) => {
   const history = useHistory()
@@ -50,7 +50,7 @@ const SignIn = ({ formErrors, toggleFetching, userInfo, isFetching, logIn }) => 
           id="email"
           className={
             errors?.email?.message || formErrors['email or password']
-              ? `${classes.input} ${classes['input--error']}`
+              ? `${classes.input} ${classes.input__error}`
               : classes.input
           }
         />
@@ -77,7 +77,7 @@ const SignIn = ({ formErrors, toggleFetching, userInfo, isFetching, logIn }) => 
           id="password"
           className={
             errors?.email?.message || formErrors['email or password']
-              ? `${classes.input} ${classes['input--error']}`
+              ? `${classes.input} ${classes.input__error}`
               : classes.input
           }
         />
@@ -86,7 +86,7 @@ const SignIn = ({ formErrors, toggleFetching, userInfo, isFetching, logIn }) => 
         <button className={`${classes.btn__submit} ${classes.btn__submit_login}`} type="submit">
           <span>{isFetching ? <Spin size="small" /> : 'Login'}</span>
         </button>
-        <span className={classes['forms-footer']}>
+        <span className={classes.forms_footer}>
           Don’t have an account? <Link to="/sign-up"> Sign Up.</Link>
         </span>
       </form>

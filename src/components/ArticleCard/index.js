@@ -1,2 +1,1 @@
-import ArticleCard from './ArticleCard'
-export default ArticleCard
+export { default as ArticleCard } from './ArticleCard'

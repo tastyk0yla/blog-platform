@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
-import { useEffect, Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
-import classes from './Header.module.scss'
-import * as actions from '../../redux/actions'
-const { logo, btn, btn__sign_up, btn__create_article, btn_container, btn__log_out, user_info__container } = classes
 import defaultAvatar from '../../img/avatar.jpg'
+import * as actions from '../../redux/actions'
+import classes from './Header.module.scss'
+const { logo, btn, btn__sign_up, btn__create_article, btn_container, btn__log_out, user_info__container } = classes
 
 const Header = ({ userInfo, getUserInfo, logOut }) => {
   useEffect(() => {

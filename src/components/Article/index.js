@@ -1,2 +1,1 @@
-import Article from './Article'
-export default Article
+export { default as Article } from './Article'

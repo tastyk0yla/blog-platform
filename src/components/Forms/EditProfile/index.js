@@ -1,2 +1,1 @@
-import EditProfile from './EditProfile'
-export default EditProfile
+export { default as EditProfile } from './EditProfile'
