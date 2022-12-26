@@ -12,22 +12,18 @@ const ArticleList = ({
   isFetching,
   getArticles,
   setPage,
-  putLike,
-  removeLike,
   userInfo,
   clearArticleState,
-  likeCounter,
 }) => {
   useLayoutEffect(() => {
+    const token = userInfo.token || localStorage.getItem('token')
     clearArticleState()
-    userInfo.token ? getArticles(page, userInfo.token) : getArticles(page)
-  }, [page, likeCounter])
+    token ? getArticles(page, token) : getArticles(page)
+  }, [page])
 
   let list = []
   if (articles?.length > 0) {
-    list = articles.map((article) => (
-      <ArticleCard article={article} key={article.slug} userInfo={userInfo} putLike={putLike} removeLike={removeLike} />
-    ))
+    list = articles.map((article) => <ArticleCard article={article} key={article.slug} />)
   }
 
   const element = isFetching ? (
@@ -51,8 +47,8 @@ const ArticleList = ({
   return <Fragment>{element}</Fragment>
 }
 
-const mapStateToProps = ({ isFetching, articles, articlesCount, page, putLike, removeLike, userInfo, likeCounter }) => {
-  return { isFetching, articles, articlesCount, page, putLike, removeLike, userInfo, likeCounter }
+const mapStateToProps = ({ isFetching, articles, articlesCount, page, userInfo }) => {
+  return { isFetching, articles, articlesCount, page, userInfo }
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch)

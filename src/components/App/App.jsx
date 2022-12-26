@@ -6,6 +6,7 @@ import { SignIn } from '../Forms/SignIn'
 import { SignUp } from '../Forms/SignUp'
 import { Header } from '../Header'
 import { ManageArticle } from '../ManageArticle'
+import { NoMatch } from '../NoMatch'
 import './App.scss'
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
             }}
           />
           <Route path="/new-article" component={ManageArticle} />
+          <Route path="*" component={NoMatch} />
         </Switch>
       </div>
     </Router>

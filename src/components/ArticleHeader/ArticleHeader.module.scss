@@ -1,13 +1,6 @@
 @import '../../variables.scss';
 
 .article {
-  box-sizing: border-box;
-  border-radius: $border-radius;
-  width: 940px;
-  margin: 26px auto;
-  padding: 15px;
-  background-color: white;
-
   &_header {
     display: flex;
   }
@@ -21,8 +14,6 @@
   }
 
   &_title {
-    max-width: 600px;
-    overflow: hidden;
     color: $primary-color;
     @include header5;
   }
@@ -40,35 +31,14 @@
       cursor: pointer;
     }
 
-    & > .icon-like {
+    & > .icon_like {
       width: 16px;
       height: 16px;
       margin-right: 5px;
     }
 
-    & > .btn--counter {
+    & > .btn__counter {
       @include font-size-sm12;
-    }
-  }
-
-  .tag_list {
-    margin-top: 4px;
-    padding: 0;
-    display: flex;
-    list-style: none;
-
-    & > .tag {
-      display: flex;
-      border: 1px solid $text-color;
-      border-radius: 2px;
-      padding: 5px;
-      margin-right: 8px;
-
-      & > span {
-        font-size: 12px;
-        line-height: 9px;
-        color: $text-color;
-      }
     }
   }
 
@@ -95,6 +65,53 @@
     width: 46px;
     height: 46px;
   }
+  &_decs_and_actions {
+    display: flex;
+  }
+
+  &_actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+    margin-right: 12px;
+    margin-left: auto;
+
+    & .btn_delete {
+      border: 1px solid $highlight-color;
+
+      & > span {
+        color: $highlight-color;
+      }
+    }
+
+    & .btn_edit {
+      border: 1px solid $succes-color;
+
+      & > span {
+        color: $succes-color;
+      }
+    }
+
+    & > button {
+      background-color: transparent;
+      display: flex;
+      border-radius: 5px;
+      height: 32px;
+
+      & > span {
+        margin: auto;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 
   &_description {
     margin: 0;
@@ -102,22 +119,6 @@
     @include font-size-sm12;
     color: $text-color;
     word-wrap: break-word;
-    width: 780px;
+    width: 900px;
   }
-
-  &_body {
-    color: $text-color;
-    word-wrap: break-word;
-  }
-
-  &_body > p {
-    @include font-size-base-sm14;
-  }
-}
-
-.spinner {
-  display: flex;
-  height: 400px;
-  align-items: center;
-  justify-content: center;
 }

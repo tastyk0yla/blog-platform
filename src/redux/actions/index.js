@@ -9,7 +9,6 @@ export const pushAnArticle = (article) => ({ type: 'PUSH_ARTICLE', payload: arti
 export const toggleLogin = (status) => ({ type: 'TOGGLE_LOGIN', payload: status })
 export const pushFormErrors = (errors) => ({ type: 'PUSH_FORM_ERRS', payload: errors })
 export const setUserInfo = (userInfo) => ({ type: 'SET_USER', payload: userInfo })
-export const likeClicked = () => ({ type: 'TOGGLE_LIKE' })
 
 export const clearArticleState = () => ({ type: 'CLEAR_ARTICLE' })
 export const toggleDeleted = (status) => ({ type: 'TOGGLE_DELETED', payload: status })
@@ -43,7 +42,7 @@ export const getArticleWithFineStrings = (article) => {
   const shortDescription =
     article.description.length > 200 ? `${article.description.substring(0, 200)}..` : article.description
   const shortTags = article.tagList.reduce((acc, tag) => {
-    tag.length > 20 ? acc.push(`${tag.substring(0, 20)}..`) : acc.push(tag)
+    tag?.length > 20 ? acc.push(`${tag.substring(0, 20)}..`) : acc.push(tag)
     return acc
   }, [])
   return { ...article, title: shortTitle, description: shortDescription, tagList: shortTags }
@@ -117,22 +116,12 @@ export const updateUserInfo = (token, submittedForm) => (dispatch) => {
   })
 }
 
-export const putLike = (token, slug) => (dispatch) => {
-  api.putLike(token, slug).then((response) => {
-    const fineArticle = getArticleWithFineStrings(response.article)
-    dispatch(pushAnArticle(fineArticle))
-    dispatch(likeClicked())
-    dispatch(toggleFetching(false))
-  })
+export const putLike = (token, slug) => {
+  api.putLike(token, slug)
 }
 
-export const removeLike = (token, slug) => (dispatch) => {
-  api.removeLike(token, slug).then((response) => {
-    const fineArticle = getArticleWithFineStrings(response.article)
-    dispatch(pushAnArticle(fineArticle))
-    dispatch(likeClicked())
-    dispatch(toggleFetching(false))
-  })
+export const removeLike = (token, slug) => {
+  api.removeLike(token, slug)
 }
 
 const getTagList = (object) => {
@@ -178,7 +167,6 @@ export const updateArticle = (token, slug, submittedForm) => (dispatch) => {
   }
   toggleFetching(true)
   api.updateArticle(token, slug, newArticleObj).then((response) => {
-    console.log(response)
     if (response.article) {
       const fineArticle = getArticleWithFineStrings(response.article)
       dispatch(pushAnArticle({ ...fineArticle, successfullyModified: true }))

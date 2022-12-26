@@ -99,48 +99,6 @@
       resize: none;
     }
 
-    & > .tags {
-      display: flex;
-
-      & > ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        width: 360px;
-
-        & > .tag {
-          display: flex;
-
-          & > input {
-            width: 300px;
-          }
-
-          & > .btn_delete {
-            border: 1px solid $highlight-color;
-            background-color: transparent;
-            margin-left: 18px;
-
-            > span {
-              color: $highlight-color;
-            }
-          }
-        }
-      }
-
-      & > .btn_add {
-        align-self: flex-end;
-        width: 136px;
-        border: 1px solid $primary-color;
-        background-color: transparent;
-        margin-left: 18px;
-        margin-bottom: 20px;
-
-        > span {
-          color: $primary-color;
-        }
-      }
-    }
-
     & > .btn_save {
       padding: 0;
       width: 320px;

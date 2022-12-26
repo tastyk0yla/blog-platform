@@ -1,0 +1,68 @@
+@import '../../variables.scss';
+
+ .tags {
+    display: flex;
+
+    & > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      width: 360px;
+      margin-bottom: 15px;
+
+      & > .tag {
+        display: flex;
+
+        & > input {
+          width: 300px;
+        }
+
+        & > .btn_delete {
+          border: 1px solid $highlight-color;
+          background-color: transparent;
+          margin-left: 18px;
+          height: 40px;
+          width: 118px;
+          border-radius: 4px;
+
+          > span {
+            color: $highlight-color;
+          }
+        }
+      }
+    }
+
+    & > .btn_add {
+      height: 40px;
+      align-self: flex-end;
+      width: 136px;
+      border: 1px solid $primary-color;
+      background-color: transparent;
+      margin-left: 18px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+
+      > span {
+        color: $primary-color;
+      }
+    }
+
+    .input {
+        box-sizing: border-box;
+        width: 100%;
+        min-height: 40px;
+        margin-bottom: 5px;
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        padding: 8px 12px 8px 12px;
+  
+        &--error {
+          border: 1px solid $highlight-color;
+  
+          &:focus {
+            border: 2px solid $highlight-color;
+            outline: none;
+          }
+        }
+    }
+}

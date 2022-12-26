@@ -10,10 +10,7 @@ const { logo, btn, btn__sign_up, btn__create_article, btn_container, btn__log_ou
 const Header = ({ userInfo, getUserInfo, logOut }) => {
   useEffect(() => {
     const token = userInfo.token || localStorage.getItem('token')
-    const { isExtended } = userInfo
-    if (token) {
-      isExtended ? undefined : getUserInfo(token)
-    }
+    if (token) getUserInfo(token)
   }, [])
 
   let buttons = (

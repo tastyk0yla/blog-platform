@@ -1,0 +1,25 @@
+@import '../../variables.scss';
+
+.tag_list {
+  margin-top: 4px;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  max-width: 600px;
+  overflow: hidden;
+  margin-bottom: 16px;
+
+  & > .tag {
+    display: flex;
+    border: 1px solid $text-color;
+    border-radius: 2px;
+    padding: 5px;
+    margin-right: 8px;
+
+    & > span {
+      font-size: 12px;
+      line-height: 9px;
+      color: $text-color;
+    }
+  }
+}
